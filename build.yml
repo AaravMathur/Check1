@@ -1,0 +1,25 @@
+name: CI - PullREQ Build
+
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+    paths:
+      - src/**
+      - README.md
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Echo build message
+        run: echo "✅ Build triggered on ${{ github.ref_name }}"
+
