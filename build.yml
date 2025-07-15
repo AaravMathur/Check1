@@ -5,9 +5,7 @@ on:
     branches:
       - main
       - feature/**
-    paths:
-      - src/**
-      - README.md
+    # Removed 'paths' filter to trigger on any file change
   pull_request:
     branches:
       - main
@@ -21,5 +19,5 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Echo build message
-        run: echo "✅ Build triggered on ${{ github.ref_name }}"
+        run: echo "Build triggered on ${{ github.ref_name }}"
 
