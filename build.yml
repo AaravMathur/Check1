@@ -1,25 +1,21 @@
-name: Deploy with Gate
+name: V4
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    environment: Production 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run Tests
-        run: echo "Tests passed."
+      - name: Build
+        run: echo "Building..."
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-    steps:
-      - name: Deploy Step
-        run: echo "Deploying to production..."
+      - name: Deploy step
+        run: echo "Deploying to Production"
 
