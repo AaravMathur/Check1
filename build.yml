@@ -1,36 +1,25 @@
-name: Build with Branch and Path Filters
+name: Deploy with Gate
 
 on:
   push:
-    branches:
-      - main
-      - feature/*
-    paths:
-      - 'src/**'
-      - 'README.md'
-    # Optional: exclude some paths
-    # paths-ignore:
-    #   - 'docs/**'
-    #   - 'tests/**'
-
-  pull_request:
-    branches:
-      - main
-      - feature/*
-    paths:
-      - 'src/**'
-      - 'README.md'
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Display branch name
-        run: echo "Running on branch: ${{ github.ref_name }}"
+      - name: Run Tests
+        run: echo "Tests passed."
 
-      - name: Example build step
-        run: echo "Build executed!"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    steps:
+      - name: Deploy Step
+        run: echo "Deploying to production..."
 
