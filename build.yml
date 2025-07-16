@@ -1,27 +1,36 @@
-name: CI - PullREQ Build
-i
+name: Build with Branch and Path Filters
+
 on:
   push:
     branches:
       - main
-      - feature/**
-    # Removed 'paths' filter to trigger on any file change
+      - feature/*
+    paths:
+      - 'src/**'
+      - 'README.md'
+    # Optional: exclude some paths
+    # paths-ignore:
+    #   - 'docs/**'
+    #   - 'tests/**'
+
   pull_request:
     branches:
       - main
+      - feature/*
     paths:
-      - src/**
-      - README.md
+      - 'src/**'
+      - 'README.md'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Echo build message
-        run: echo "Build triggered on ${{ github.ref_name }}"
+      - name: Display branch name
+        run: echo "Running on branch: ${{ github.ref_name }}"
 
+      - name: Example build step
+        run: echo "Build executed!"
 
