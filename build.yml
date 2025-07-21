@@ -1,21 +1,16 @@
-name: V4
-
-on:
-  push:
-    branches:
+trigger:
+  branches:
+    include:
       - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment: Production 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+pool:
+  vmImage: 'ubuntu-latest'
 
-      - name: Build
-        run: echo "Building..."
+steps:
+  - checkout: self
 
-      - name: Deploy step
-        run: echo "Deploying to Production"
-
+  - script: |
+      echo "Deploying to Azure..."
+      echo "App Name: $(APP_NAME)"
+      echo "Region: $(REGION)"
+    displayName: 'Use Azure DevOps Variables'
