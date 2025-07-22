@@ -1,16 +1,32 @@
-trigger:
-  branches:
-    include:
+name: Staging Deployment Test
+
+on:
+  push:
+    branches:
       - main
 
-pool:
-  vmImage: 'ubuntu-latest'
+jobs:
+  deploy:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    environment:
+      name: staging  # This MUST match the environment name in GitHub
 
-steps:
-  - checkout: self
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-  - script: |
-      echo "Deploying to Azure..."
-      echo "App Name: $(APP_NAME)"
-      echo "Region: $(REGION)"
-    displayName: 'Use Azure DevOps Variables'
+      - name: Set up Node.js (optional example)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install || echo "No dependencies"
+
+      - name: Run Test (simulation)
+        run: echo "Running tests..."
+
+      - name: Simulate Deployment
+        run: echo "🚀 Deploying to staging environment..."
+
