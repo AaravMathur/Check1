@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-name: Staging Deployment Test
+name: CI/CD with Environment
 
 on:
   push:
@@ -7,50 +6,28 @@ on:
       - main
 
 jobs:
+  pre-deploy:
+    name: Pre-deployment Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: echo "✅ Running tests..."
+
   deploy:
     name: Deploy to Staging
     runs-on: ubuntu-latest
+    needs: pre-deploy
     environment:
-      name: staging  # This MUST match the environment name in GitHub
+      name: Staging
 
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js (optional example)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install Dependencies
-        run: npm install || echo "No dependencies"
-
-      - name: Run Test (simulation)
-        run: echo "Running tests..."
-
-      - name: Simulate Deployment
-        run: echo "🚀 Deploying to staging environment..."
-
-=======
-name: Azure Login Test
-
-on:
-  workflow_dispatch:
-
-jobs:
-  login-to-azure:
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy Step
+        run: echo "🚀 Deploying to Staging environment"
 
-      - name: Show Azure CLI version (to verify login)
-        run: az --version
->>>>>>> 0e8365289987eff2bc7dea378896eb46afb3694d
