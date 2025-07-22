@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Staging Deployment Test
 
 on:
@@ -30,3 +31,26 @@ jobs:
       - name: Simulate Deployment
         run: echo "🚀 Deploying to staging environment..."
 
+=======
+name: Azure Login Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  login-to-azure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Show Azure CLI version (to verify login)
+        run: az --version
+>>>>>>> 0e8365289987eff2bc7dea378896eb46afb3694d
